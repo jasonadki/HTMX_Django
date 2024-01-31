@@ -1,0 +1,59 @@
+# Android Studio (Kotlin)
+**/*.iml
+**/.gradle
+**/local.properties
+**/.idea/
+**/.DS_Store
+**/build
+**/captures
+**/.externalNativeBuild
+
+
+# Android Studio - Generated files
+**/captures/
+**/outputs/
+
+# Android Studio - Local configuration file (sdk path, etc)
+**/local.properties
+
+# Kotlin Build
+**/*.hprof
+
+# Django
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/__pycache__/
+**/db.sqlite3
+**/db.sqlite3-journal
+**/media
+
+# Django - Static files
+**/static
+
+# Django - Environment files
+**/.env
+
+# Virtualenv
+**/venv/
+**/ENV/
+**/env/
+**/.venv/
+**/venv.bak/
+**/env.bak/
+
+# Spyder project settings
+**/.spyderproject
+**/.spyproject
+
+# Jupyter Notebook
+**/.ipynb_checkpoints
+
+# MacOS
+**/.DS_Store
+
+# PyCharm
+**/.idea/
+
+# VSCode
+**/.vscode/
