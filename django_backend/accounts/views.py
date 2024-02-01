@@ -189,8 +189,10 @@ def process_login_view(request):
 
     if user is not None:
         login(request, user)
-        return HttpResponseRedirect('/accounts/home/')  # Redirect to homepage
-
+        # Return a special HTMX redirect response
+        response = JsonResponse({'redirect': '/accounts/home/'})
+        response['HX-Redirect'] = '/accounts/home/'
+        return response
     else:
         return JsonResponse({'error': 'Invalid credentials.'}, status=401)
     

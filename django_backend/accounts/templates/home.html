@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
+
+
+{% extends './base.html' %}
+{% block content %}
+
 <body>
     <h1>Welcome, {{ user.first_name }} {{ user.last_name }}</h1>
     <!-- Add more content here as needed -->
 </body>
-</html>
+
+{% endblock %}
