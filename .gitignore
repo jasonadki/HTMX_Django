@@ -28,8 +28,6 @@
 **/db.sqlite3-journal
 **/media
 
-# Django - Static files
-**/static
 
 # Django - Environment files
 **/.env

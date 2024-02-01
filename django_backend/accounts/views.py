@@ -25,7 +25,8 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST, require_http_methods
 from django.contrib.auth.hashers import make_password
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+
 
 
 
@@ -202,3 +203,14 @@ def process_login_view(request):
 def home_view(request):
     # The login_required decorator ensures only authenticated users can access this view
     return render(request, 'home.html', {'user': request.user})
+
+
+@require_POST
+def logout_view(request):
+    print("HERE")
+    logout(request)
+    # HTMX expects a JSON response indicating where to redirect.
+    response = JsonResponse({'redirect': '/accounts/login/'})
+    response['HX-Redirect'] = '/accounts/login/'
+    return response
+    

@@ -14,7 +14,7 @@ router.register('', UserViewSet, basename='accounts')
 urlpatterns = [
     path('user/', UserDetail.as_view(), name='userdetail'),
     path('get_account/', get_account, name='get_account'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    # path('logout/', LogoutView.as_view(), name='logout'),
 
 
     path('signup/', signup_view, name='signup'),
@@ -22,6 +22,7 @@ urlpatterns = [
     path('login/', display_login_view, name='display_login'),
     path('process_login/', process_login_view, name='process_login'),
     path('home/', home_view, name='home'),
+    path('display_logout/', logout_view, name='display_logout'),
 
 
 

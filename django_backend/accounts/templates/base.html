@@ -29,9 +29,28 @@
                     </svg></span><span>Brand</span></a><button data-bs-toggle="collapse" class="navbar-toggler"
                 data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span
                     class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navcol-1">
-                <ul class="navbar-nav mx-auto"></ul><a class="btn btn-primary shadow" role="button" href="{% url 'signup' %}">Sign up</a>
-            </div>
+                    <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1">
+                        <span class="visually-hidden">Toggle navigation</span>
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navcol-1">
+                        <ul class="navbar-nav ms-auto">
+                            {% if user.is_authenticated %}
+                                <li class="nav-item">
+                                    <form action="{% url 'display_logout' %}" method="post" hx-post="{% url 'display_logout' %}" hx-target="body">
+                                        {% csrf_token %}
+                                        <button class="btn btn-primary shadow" type="submit">Log out</button>
+                                    </form>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="btn btn-primary shadow" role="button" href="{% url 'display_login' %}">Log in</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="btn btn-primary shadow" role="button" href="{% url 'signup' %}">Sign up</a>
+                                </li>
+                            {% endif %}
+                        </ul>
         </div>
     </nav>
     <section class="py-5">
