@@ -1,0 +1,22 @@
+{% extends './base.html' %}
+{% block content %}
+
+<body>
+    <h1>Edit Profile</h1>
+    <form action="{% url 'profile' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+
+    <div id="profile-picture-container">
+        {% if user.profile_picture %}
+        <img src="{{ user.profile_picture.url }}" alt="Profile Picture" style="max-width: 200px; max-height: 200px;">
+        {% else %}
+        <p>No profile picture</p>
+        {% endif %}
+    </div>
+
+</body>
+
+{% endblock %}

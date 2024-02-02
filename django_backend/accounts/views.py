@@ -1,6 +1,7 @@
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from .forms import CustomUserEditForm, ProfilePictureForm
 
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.core.mail import send_mail, EmailMessage
@@ -214,3 +215,31 @@ def logout_view(request):
     response['HX-Redirect'] = '/accounts/login/'
     return response
     
+
+
+@require_http_methods(["POST"])
+def upload_profile_picture(request):
+    form = ProfilePictureForm(request.POST, request.FILES, instance=request.user)
+    if form.is_valid():
+        form.save()
+        return JsonResponse({'message': 'Profile picture updated successfully.', 'profile_picture_url': request.user.profile_picture.url})
+    else:
+        return JsonResponse({'error': form.errors}, status=400)
+    
+
+
+
+@login_required
+def profile_view(request):
+    if request.method == 'POST':
+        form = CustomUserEditForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')  # Redirect to the profile page after update
+    else:
+        form = CustomUserEditForm(instance=request.user)
+    
+    context = {
+        'form': form,
+    }
+    return render(request, 'profile.html', context)

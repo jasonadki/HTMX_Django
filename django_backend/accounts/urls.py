@@ -2,6 +2,7 @@ from django.urls import path, include
 
 from rest_framework.routers import DefaultRouter
 
+
 # from rest_framework_simplejwt.views
 
 from .views import *
@@ -23,6 +24,8 @@ urlpatterns = [
     path('process_login/', process_login_view, name='process_login'),
     path('home/', home_view, name='home'),
     path('display_logout/', logout_view, name='display_logout'),
+    path('upload_profile_picture/', upload_profile_picture, name='upload_profile_picture'),
+    path('profile/', profile_view, name='profile'),
 
 
 

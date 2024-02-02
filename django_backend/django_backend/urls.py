@@ -4,6 +4,10 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+
+from django.conf import settings
+from django.conf.urls.static import static
+
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -18,4 +22,4 @@ urlpatterns = [
     path('api/v1/token/obtain/', TokenObtainPairView.as_view(), name='token_create'),  # override jwt stock token
     path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  # override jwt stock token
     path("accounts/", include("accounts.urls")),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
