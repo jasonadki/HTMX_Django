@@ -26,12 +26,6 @@ urlpatterns = [
     path('display_logout/', logout_view, name='display_logout'),
     path('upload_profile_picture/', upload_profile_picture, name='upload_profile_picture'),
     path('profile/', profile_view, name='profile'),
-    # path('profile/edit/', update_profile, name='update_profile'),
-
-
-    path('home2/', home2, name='home2'),
-    path('message/', message, name='message'),
-
 
     path('', include(router.urls)),
 ]
