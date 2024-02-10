@@ -185,7 +185,13 @@ def create_account_view(request):
 # View to display the login form
 @require_http_methods(["GET"])
 def display_login_view(request):
-    return render(request, 'login.html')
+    print(f'request.user: {request.user}')
+    if request.user.is_authenticated:
+        form = CustomUserEditForm(instance=request.user)
+        return render(request, 'profile.html', {'form': form})
+    else:
+        return render(request, 'login.html')
+
 
 # View to handle the login form submission
 @require_POST
@@ -222,31 +228,34 @@ def logout_view(request):
     
 
 
-@require_http_methods(["POST"])
+@require_POST
 def upload_profile_picture(request):
     form = ProfilePictureForm(request.POST, request.FILES, instance=request.user)
     if form.is_valid():
         form.save()
-        return JsonResponse({'message': 'Profile picture updated successfully.', 'profile_picture_url': request.user.profile_picture.url})
+        # Return the new profile picture URL in the response
+        html = '<img src="{}" alt="Profile Picture">'.format(request.user.profile_picture.url)
+        return HttpResponse(html)
     else:
         return JsonResponse({'error': form.errors}, status=400)
+
     
 
 
 
 @login_required
 def profile_view(request):
-    # Inside your view function
     if request.method == 'POST':
         form = CustomUserEditForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully')
-            return HttpResponse(status=204)
+            return HttpResponse(status=204)  # Or redirect as per your app flow
         else:
             messages.error(request, 'Error updating your profile')
-            return redirect('profile')
+            return redirect('profile')  # Ensure this redirects as intended or handle errors accordingly
     else:
         form = CustomUserEditForm(instance=request.user)
         return render(request, 'profile.html', {'form': form})
+
     
