@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from django.contrib import messages
 from datetime import timedelta
 import json
 import os
@@ -51,6 +52,7 @@ DJANGO_APPS = [
 
 PROJECT_APPS = [           
     'accounts',
+    'htmx_messages',
 ]
 
 THIRD_PARTY_APPS = [
@@ -146,6 +148,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'htmx_messages.middleware.HtmxMessageMiddleware',
 ]
 
 
@@ -257,3 +260,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL="accounts.CustomUser"
 
 LOGIN_URL = '/login/'
+
+
+MESSAGE_LEVEL = messages.DEBUG
+
+# This sets the mapping of message level to message tag, which is typically rendered as a CSS class in HTML.
+# https://docs.djangoproject.com/en/4.1/ref/settings/#message-tags
+MESSAGE_TAGS = {
+    messages.DEBUG: "bg-light",
+    messages.INFO: "text-white bg-primary",
+    messages.SUCCESS: "text-white bg-success",
+    messages.WARNING: "text-dark bg-warning",
+    messages.ERROR: "text-white bg-danger",
+}

@@ -1,22 +1,41 @@
 {% extends './base.html' %}
-{% block content %}
 
+{% block content %}
 <body>
     <h1>Edit Profile</h1>
-    <form action="{% url 'profile' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Update Profile</button>
-    </form>
 
-    <div id="profile-picture-container">
-        {% if user.profile_picture %}
-        <img src="{{ user.profile_picture.url }}" alt="Profile Picture" style="max-width: 200px; max-height: 200px;">
-        {% else %}
-        <p>No profile picture</p>
-        {% endif %}
-    </div>
+    <!-- <div id="profile-update-section"> -->
+        <form action="{% url 'profile' %}" method="post" enctype="multipart/form-data" 
+            hx-post="{% url 'profile' %}"
+            
+            hx-headers='{"X-Requested-With": "XMLHttpRequest"}'>
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label for="first_name" class="form-label">First Name:</label>
+                <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}">
+            </div>
 
+            <div class="mb-3">
+                <label for="last_name" class="form-label">Last Name:</label>
+                <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="profile_picture" class="form-label">Profile Picture:</label>
+                {% if user.profile_picture %}
+                <div id="profile-picture-preview">
+                    <img src="{{ user.profile_picture.url }}" alt="Profile Picture" style="max-width: 200px; max-height: 200px;">
+                </div>
+                {% endif %}
+                <input class="form-control" type="file" id="profile_picture" name="profile_picture" accept="image/*">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update Profile</button>
+        </form>
+
+        {% include 'toasts.html' %}
+        
+    <!-- </div> -->
 </body>
-
 {% endblock %}
