@@ -203,8 +203,8 @@ def process_login_view(request):
     if user is not None:
         login(request, user)
         # Return a special HTMX redirect response
-        response = JsonResponse({'redirect': '/accounts/home/'})
-        response['HX-Redirect'] = '/accounts/home/'
+        response = JsonResponse({'redirect': '/home/'})
+        response['HX-Redirect'] = '/home/'
         return response
     else:
         return JsonResponse({'error': 'Invalid credentials.'}, status=401)
@@ -222,8 +222,8 @@ def logout_view(request):
     print("HERE")
     logout(request)
     # HTMX expects a JSON response indicating where to redirect.
-    response = JsonResponse({'redirect': '/accounts/login/'})
-    response['HX-Redirect'] = '/accounts/login/'
+    response = JsonResponse({'redirect': '/login/'})
+    response['HX-Redirect'] = '/login/'
     return response
     
 

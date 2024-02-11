@@ -18,14 +18,15 @@ urlpatterns = [
     # path('logout/', LogoutView.as_view(), name='logout'),
 
 
-    path('signup/', signup_view, name='signup'),
-    path('create_account/', create_account_view, name='create_account'),
-    path('login/', display_login_view, name='display_login'),
+    
     path('process_login/', process_login_view, name='process_login'),
-    path('home/', home_view, name='home'),
+    # path('home/', home_view, name='home'),
     path('display_logout/', logout_view, name='display_logout'),
     path('upload_profile_picture/', upload_profile_picture, name='upload_profile_picture'),
-    path('profile/', profile_view, name='profile'),
+    # path('profile/', profile_view, name='profile'),
+    # path('signup/', signup_view, name='signup'),
+    # path('create_account/', create_account_view, name='create_account'),
+    # path('login/', display_login_view, name='display_login'),
 
     path('', include(router.urls)),
 ]
